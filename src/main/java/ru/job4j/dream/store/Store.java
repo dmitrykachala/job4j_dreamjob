@@ -28,13 +28,25 @@ public class Store {
     }
 
     public void save(Post post) {
-        post.setId(POST_ID.incrementAndGet());
+        if (!posts.containsKey(post.getId())) {
+            post.setId(POST_ID.incrementAndGet());
+        }
         posts.put(post.getId(), post);
     }
 
     public void save(Candidate candidate) {
-        candidate.setId(CANDIDATE_ID.incrementAndGet());
+        if (!candidates.containsKey(candidate.getId())) {
+            candidate.setId(CANDIDATE_ID.incrementAndGet());
+        }
         candidates.put(candidate.getId(), candidate);
+    }
+
+    public Post findById(int id) {
+        return posts.get(id);
+    }
+
+    public Candidate findCanById(int id) {
+        return candidates.get(id);
     }
 
     public static Store instOf() {
