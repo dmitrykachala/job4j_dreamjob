@@ -43,7 +43,8 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Названия</th>
+                        <th scope="col">Имя</th>
+                        <th>Фото</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -54,6 +55,15 @@
                                     <i class="fa fa-edit mr-3"></i>
                                 </a>
                                 <c:out value="${candidate.name}"/>
+                            </td>
+                            <td>
+                                <img src="<c:url value='/download?name=${candidate.id}.jpg'/>" width="100px" height="100px"/>
+                                    <form method="post" action="<c:url value='/upload'/>" enctype="multipart/form-data">
+                                        <input type="submit" name="ter" value="Добавить аватар" >
+                                    </form>
+                                    <form method="post" action="<c:url value='/delete?id=${candidate.id}'/>" enctype="multipart/form-data">
+                                        <input type="submit" name="ter" value="Удалить кандидата" >
+                                    </form>
                             </td>
                         </tr>
                     </c:forEach>
