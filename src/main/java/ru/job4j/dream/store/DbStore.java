@@ -70,7 +70,19 @@ public class DbStore implements Store {
     }
 
     public Collection<Candidate> findAllCandidates() {
-        return null;
+        List<Candidate> candidates = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement("SELECT * FROM candidate")
+        ) {
+            try (ResultSet it = ps.executeQuery()) {
+                while (it.next()) {
+                    candidates.add(new Candidate(it.getInt("id"), it.getString("name")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return candidates;
     }
 
     public void save(Post post) {
@@ -100,7 +112,16 @@ public class DbStore implements Store {
     }
 
     private void update(Post post) {
-
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement("UPDATE post SET name = ? WHERE id = ?",
+                     PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, post.getName());
+            ps.setInt(2, post.getId());
+            ps.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Post findById(int id) {
