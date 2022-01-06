@@ -4,6 +4,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import ru.job4j.dream.PropertyManufacture;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -22,8 +23,12 @@ public class UploadServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         List<String> images = new ArrayList<>();
-        for (File name : new File("c:\\images\\").listFiles()) {
-            images.add(name.getName());
+        try {
+            for (File name : new File(PropertyManufacture.getDir()).listFiles()) {
+                images.add(name.getName());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         req.setAttribute("images", images);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/upload.jsp");
@@ -40,7 +45,8 @@ public class UploadServlet extends HttpServlet {
         ServletFileUpload upload = new ServletFileUpload(factory);
         try {
             List<FileItem> items = upload.parseRequest(req);
-            File folder = new File("c:\\images\\");
+            String dirPath = PropertyManufacture.getDir();
+            File folder = new File(dirPath);
             if (!folder.exists()) {
                 folder.mkdir();
             }
@@ -52,7 +58,7 @@ public class UploadServlet extends HttpServlet {
                     }
                 }
             }
-        } catch (FileUploadException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         doGet(req, resp);

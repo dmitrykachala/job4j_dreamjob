@@ -2,7 +2,7 @@ package ru.job4j.dream.servlet;
 
 import org.apache.commons.io.FileUtils;
 import ru.job4j.dream.PropertyManufacture;
-import ru.job4j.dream.store.Store;
+import ru.job4j.dream.store.MemStore;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -22,10 +22,10 @@ public class DeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.valueOf(request.getParameter("id"));
-        Store.instOf().delCandidate(id);
-        PropertyManufacture pm = new PropertyManufacture();
+        MemStore.instOf().delCandidate(id);
+
         try {
-            FileUtils.deleteQuietly(new File(pm.getDir() + id + ".jpg"));
+            FileUtils.deleteQuietly(new File(PropertyManufacture.getDir() + id + ".jpg"));
         } catch (Exception e) {
             e.printStackTrace();
         }
