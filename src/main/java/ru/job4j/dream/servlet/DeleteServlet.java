@@ -1,6 +1,7 @@
 package ru.job4j.dream.servlet;
 
 import org.apache.commons.io.FileUtils;
+import ru.job4j.dream.PropertyManufacture;
 import ru.job4j.dream.store.Store;
 
 import javax.servlet.*;
@@ -22,6 +23,11 @@ public class DeleteServlet extends HttpServlet {
             throws ServletException, IOException {
         int id = Integer.valueOf(request.getParameter("id"));
         Store.instOf().delCandidate(id);
-        FileUtils.deleteQuietly(new File("c:\\images\\" + id + ".jpg"));
+        PropertyManufacture pm = new PropertyManufacture();
+        try {
+            FileUtils.deleteQuietly(new File(pm.getDir() + id + ".jpg"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
