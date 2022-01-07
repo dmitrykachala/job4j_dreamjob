@@ -1,10 +1,14 @@
 package ru.job4j.dream.store;
 
+import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 
 public class MainStore {
+
     public static void main(String[] args) {
-        Store store = DbStore.instOf();
+
+        DbStore store = (DbStore) DbStore.instOf();
+
         Post p1 = new Post(0, "Jedi");
         store.save(new Post(0, "Java Job"));
         store.save(p1);
@@ -22,6 +26,21 @@ public class MainStore {
         for (var can : store.findAllCandidates()) {
             System.out.println(can);
         }
+
+        Candidate c1 = new Candidate(0, "qqq");
+        Candidate c2 = new Candidate(0, "www");
+        Candidate c3 = new Candidate(0, "eee");
+
+        store.save(c1);
+        store.save(c2);
+        store.save(c3);
+        store.save(new Candidate(2, "rrr"));
+
+        for (var can : store.findAllCandidates()) {
+            System.out.println(can);
+        }
+
+        System.out.println(store.findCanById(3));
 
     }
 }

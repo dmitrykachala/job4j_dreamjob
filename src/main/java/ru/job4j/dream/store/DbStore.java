@@ -13,9 +13,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DbStore implements Store {
-    private static final DbStore INSTANCE = new DbStore();
+
+    private static final Logger LOGGER = Logger.getLogger(DbStore.class.getName());
 
     private final BasicDataSource pool = new BasicDataSource();
 
@@ -63,8 +66,9 @@ public class DbStore implements Store {
                     posts.add(new Post(it.getInt("id"), it.getString("name")));
                 }
             }
+
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
         return posts;
     }
@@ -80,7 +84,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
         return candidates;
     }
@@ -90,6 +94,14 @@ public class DbStore implements Store {
             create(post);
         } else {
             update(post);
+        }
+    }
+
+    public void save(Candidate candidate) {
+        if (candidate.getId() == 0) {
+            create(candidate);
+        } else {
+            update(candidate);
         }
     }
 
@@ -106,9 +118,27 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
         return post;
+    }
+
+    private Candidate create(Candidate candidate) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement("INSERT INTO candidate(name) VALUES (?)",
+                     PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, candidate.getName());
+            ps.execute();
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    candidate.setId(id.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
+        }
+        return candidate;
     }
 
     private void update(Post post) {
@@ -120,7 +150,21 @@ public class DbStore implements Store {
             ps.setInt(2, post.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
+        }
+    }
+
+    private void update(Candidate candidate) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.
+                     prepareStatement("UPDATE candidate SET name = ? WHERE id = ?",
+                     PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, candidate.getName());
+            ps.setInt(2, candidate.getId());
+            ps.execute();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
     }
 
@@ -135,8 +179,25 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
         return null;
     }
+
+    public Candidate findCanById(int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement("SELECT * FROM candidate WHERE id = ?")
+        ) {
+            ps.setInt(1, id);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    return new Candidate(it.getInt("id"), it.getString("name"));
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
+        }
+        return null;
+    }
+
 }
