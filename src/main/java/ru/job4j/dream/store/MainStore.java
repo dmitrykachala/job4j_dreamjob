@@ -9,7 +9,7 @@ public class MainStore {
 
         Store store = DbStore.instOf();
 
-        /*Post p1 = new Post(0, "Jedi");
+        Post p1 = new Post(0, "Jedi");
         store.save(new Post(0, "Java Job"));
         store.save(p1);
         for (Post post : store.findAllPosts()) {
@@ -34,7 +34,7 @@ public class MainStore {
         store.save(c1);
         store.save(c2);
         store.save(c3);
-        store.save(new Candidate(2, "rrr"));*/
+        store.save(new Candidate(2, "rrr"));
 
         System.out.println(store.findCanById(3));
 
