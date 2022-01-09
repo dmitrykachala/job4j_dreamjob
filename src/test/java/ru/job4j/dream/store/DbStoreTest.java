@@ -12,78 +12,45 @@ import static org.junit.Assert.assertNull;
 
 public class DbStoreTest {
     @Test
-    public void whenCreatePost() {
+    public void whenFindAndCreateAndUpdateAndDeletePost() {
         Store store = DbStore.instOf();
         Post post = new Post(0, "Java Job");
         store.save(post);
         Post postInDb = store.findById(post.getId());
+
+        assertThat(postInDb.toString(), is(store.findById(1).toString()));
+
         assertThat(postInDb.getName(), is(post.getName()));
-    }
 
-    @Test
-    public void whenUpdatePost() {
-        Store store = DbStore.instOf();
-        Post post = new Post(0, "Java Job");
-        store.save(post);
         store.save(new Post(1, "Job"));
-        Post postInDb = store.findById(post.getId());
-        assertThat(postInDb.getName(), is("Job"));
-    }
+        postInDb = store.findById(post.getId());
 
-    @Test
-    public void whenDeletePost() {
-        Store store = DbStore.instOf();
-        Post post = new Post(0, "Java Job");
-        store.save(post);
-        Post postInDb = store.findById(post.getId());
+        assertThat(postInDb.getName(), is("Job"));
+
         store.delete(1);
+
         assertNull(store.findById(1));
     }
 
     @Test
-    public void whenFindPost() {
-        Store store = DbStore.instOf();
-        Post post = new Post(0, "Java Job");
-        store.save(post);
-        Post postInDb = store.findById(post.getId());
-        assertThat(postInDb.toString(), is(store.findById(1).toString()));
-    }
-
-    @Test
-    public void whenCreateCandidate() {
+    public void whenFindAndCreateAndUpdateAndDeleteCandidate() {
         Store store = DbStore.instOf();
         Candidate candidate = new Candidate(0, "Java Job");
         store.save(candidate);
         Candidate canInDb = store.findCanById(candidate.getId());
+
+        assertThat(canInDb.toString(), is(store.findCanById(1).toString()));
+
         assertThat(canInDb.getName(), is(candidate.getName()));
-    }
 
-    @Test
-    public void whenUpdateCandidate() {
-        Store store = DbStore.instOf();
-        Candidate candidate = new Candidate(0, "Java Job");
-        store.save(candidate);
         store.save(new Candidate(1, "Job"));
-        Candidate canInDb = store.findCanById(candidate.getId());
-        assertThat(canInDb.getName(), is("Job"));
-    }
+        canInDb = store.findCanById(candidate.getId());
 
-    @Test
-    public void whenDeleteCandidate() {
-        Store store = DbStore.instOf();
-        Candidate candidate = new Candidate(0, "Java Job");
-        store.save(candidate);
-        Candidate canInDb = store.findCanById(candidate.getId());
+        assertThat(canInDb.getName(), is("Job"));
+
         store.deleteCan(1);
+
         assertNull(store.findCanById(1));
     }
 
-    @Test
-    public void whenFindPCandidate() {
-        Store store = DbStore.instOf();
-        Candidate candidate = new Candidate(0, "Java Job");
-        store.save(candidate);
-        Candidate canInDb = store.findCanById(candidate.getId());
-        assertThat(canInDb.toString(), is(store.findCanById(1).toString()));
-    }
 }
