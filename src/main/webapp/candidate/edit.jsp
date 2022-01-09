@@ -13,6 +13,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page import="ru.job4j.dream.store.MemStore" %>
 <%@ page import="ru.job4j.dream.store.DbStore" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
@@ -55,6 +56,15 @@
                 <% } else { %>
                 Редактирование кандидата.
                 <% } %>
+                <div class="row">
+                    <ul class="nav">
+                        <c:if test="${user != null}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<%=request.getContextPath()%>/logout.do"> <c:out value="${user.name}"/> | Выйти</a>
+                        </li>
+                        </c:if>
+                    </ul>
+                </div>
             </div>
             <div class="card-body">
                 <form action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId()%>" method="post">
