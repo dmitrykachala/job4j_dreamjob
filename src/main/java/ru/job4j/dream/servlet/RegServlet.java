@@ -24,11 +24,16 @@ public class RegServlet extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        User user = new User();
-        user.setName(name);
-        user.setEmail(email);
-        user.setPassword(password);
         Store store = DbStore.instOf();
-        store.save(user);
+        if (store.findUserByEmail(email) != null) {
+            req.setAttribute("error", "Данный email уже используется");
+            req.getRequestDispatcher("reg.jsp").forward(req, resp);
+        } else {
+            User user = new User();
+            user.setName(name);
+            user.setEmail(email);
+            user.setPassword(password);
+            store.save(user);
+        }
     }
 }
