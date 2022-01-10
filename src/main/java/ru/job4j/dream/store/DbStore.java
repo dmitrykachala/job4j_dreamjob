@@ -226,22 +226,12 @@ public class DbStore implements Store {
     }
 
     @Override
-    public Collection<User> findAllUsers() {
-        return null;
-    }
-
-    @Override
     public void save(User user) {
 
     }
 
     @Override
-    public void deleteUser(int id) {
-
-    }
-
-    @Override
-    public User findUserById(int id) {
+    public User findUserByEmail(String email) {
         return null;
     }
 }
