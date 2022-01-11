@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Bootstrap, JS и все-все-все</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+    function validate() {
+      if ($('#inputName').val() === '') alert($('#inputName').attr('title'));
+      if ($('#inputSurname').val() === '') alert($('#inputSurname').attr('title'));
+      if ($('#formGenderSelect').val() === '') alert($('#formGenderSelect').attr('title'));
+      if ($('#formDescription').val() === '') alert($('#formDescription').attr('title'));
+      return false;
+    }
+  </script>
 </head>
 <body>
 
@@ -17,25 +26,25 @@
 
 <form>
   <div class="form-group">
-    <label for="InputName">Имя</label>
-    <input type="text" class="form-control" id="InputName">
+    <label for="inputName">Имя</label>
+    <input type="text" class="form-control" title="Введите имя пользователя" id="inputName">
   </div>
   <div class="form-group">
-    <label for="exampleInputSurname">Фамилия</label>
-    <input type="password" class="form-control" id="exampleInputSurname">
+    <label for="inputSurname">Фамилия</label>
+    <input type="password" class="form-control" title="Введите фамилию пользователя" id="inputSurname">
   </div>
   <div class="form-group">
-    <label for="exampleFormGenderSelect">Пол</label>
-    <select class="form-control" id="exampleFormGenderSelect">
+    <label for="formGenderSelect">Пол</label>
+    <select class="form-control" title="Выберете нужный пол" id="formGenderSelect">
       <option>М</option>
       <option>Ж</option>
     </select>
   </div>
   <div class="form-group">
-    <label for="FormDescription">Описание</label>
-    <textarea class="form-control" id="FormDescription" rows="3"></textarea>
+    <label for="formDescription">Описание</label>
+    <textarea class="form-control" title="Опишите" id="formDescription" rows="3"></textarea>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
 </form>
 
 <table class="table table-striped">
