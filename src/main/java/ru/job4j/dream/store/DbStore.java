@@ -226,12 +226,46 @@ public class DbStore implements Store {
     }
 
     @Override
+    public Candidate findCanByName(String name) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement("SELECT * FROM candidate WHERE name = ?")
+        ) {
+            ps.setString(1, name);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    return new Candidate(it.getInt("id"), it.getString("name"));
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
+        }
+        return null;
+    }
+
+    @Override
     public void save(User user) {
 
     }
 
     @Override
     public User findUserByEmail(String email) {
+        return null;
+    }
+
+    @Override
+    public Post findByName(String name) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement("SELECT * FROM post WHERE name = ?")
+        ) {
+            ps.setString(1, name);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    return new Post(it.getInt("id"), it.getString("name"));
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
+        }
         return null;
     }
 }

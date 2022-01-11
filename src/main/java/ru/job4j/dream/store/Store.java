@@ -23,7 +23,11 @@ public interface Store {
 
     Post findById(int id);
 
+    Post findByName(String name);
+
     Candidate findCanById(int id);
+
+    Candidate findCanByName(String name);
 
     User findUserByEmail(String email);
 }
