@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+  <h1>Job4j task</h1>
+  <p>1. index.html + bootstrap, form, table [#58522]</p>
+</div>
+
+<form>
+  <div class="form-group">
+    <label for="InputName">Имя</label>
+    <input type="text" class="form-control" id="InputName">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputSurname">Фамилия</label>
+    <input type="password" class="form-control" id="exampleInputSurname">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormGenderSelect">Пол</label>
+    <select class="form-control" id="exampleFormGenderSelect">
+      <option>М</option>
+      <option>Ж</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="FormDescription">Описание</label>
+    <textarea class="form-control" id="FormDescription" rows="3"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Нумер</th>
+    <th scope="col">Имя</th>
+    <th scope="col">Фамилие</th>
+    <th scope="col">Всякое</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <th scope="row">1</th>
+    <td>Йода</td>
+    <td>Джедай</td>
+    <td>зелёный человечек</td>
+  </tr>
+  <tr>
+    <th scope="row">2</th>
+    <td>Оби-ван</td>
+    <td>Кеноби</td>
+    <td>Человечий сын</td>
+  </tr>
+  <tr>
+    <th scope="row">3</th>
+    <td>Люк</td>
+    <td>Небесоходец</td>
+    <td>Перещёл на тёмную сторону, где печеньки</td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
