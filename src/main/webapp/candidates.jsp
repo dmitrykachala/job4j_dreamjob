@@ -34,7 +34,8 @@
 </head>
 <body>
 <div class="container pt-3">
-    <div class="row">
+    <%@include file="./header.jsp"%>
+    <%--<div class="row">
         <ul class="nav">
             <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
@@ -54,7 +55,7 @@
                 </li>
             </c:if>
         </ul>
-    </div>
+    </div>--%>
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">

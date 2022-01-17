@@ -24,7 +24,7 @@ public class DeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.valueOf(request.getParameter("id"));
-        DbStore.instOf().deleteCan(id);
+        DbStore.instOf().remove(DbStore.instOf().findCanById(id));
 
         try {
             FileUtils.deleteQuietly(new File(PropertyManufacture.getDir() + id + ".jpg"));

@@ -1,8 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
-<%@ page import="ru.job4j.dream.store.MemStore" %>
-<%@ page import="ru.job4j.dream.store.DbStore" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -24,31 +22,44 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do">Кандидаты</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/post/edit.jsp">Добавить вакансию</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/candidate/edit.jsp">Добавить кандидата</a>
-            </li>
-        </ul>
-    </div>
+    <%@include file="header.jsp" %>
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
                 Сегодняшние вакансии.
             </div>
             <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="width: 16.66%">Фото</th>
+                        <th scope="col" style="width: 16.66%">Город</th>
+                        <th scope="col">Имя</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${candidates}" var="can">
+                        <tr>
+                            <td><a href='<c:url value="/upload?id=${can.id}"/>'><i
+                                    class="fa fa-edit mr-3"></i></a> <a
+                                    href='<c:url value="/upload?remove&id=${can.id}"/>'><i
+                                    class="fa fa-remove mr-3"></i></a> <img
+                                    src='<c:url value="/download?name=${can.id}.jpg"/>' width=100
+                                    height=100 /></td>
+                            <td><c:forEach items="${cities}" var="city">
+                                <c:if  test="${can.cityId==city.id}">
+                                    <c:out value="${city.name}" />
+                                </c:if>
+                            </c:forEach></td>
+                            <td><a
+                                    href='<c:url value="/candidate/edit.jsp?id=${can.id}"/>'><i
+                                    class="fa fa-edit mr-3"></i></a> <a
+                                    href='<c:url value="/candidate/edit.jsp?remove&id=${can.id}"/>'><i
+                                    class="fa fa-remove mr-3"></i></a> <c:out value="${can.name}" /></td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -58,6 +69,28 @@
                 Сегодняшние кандидаты.
             </div>
             <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">Дата создания</th>
+                        <th scope="col">Название</th>
+                        <th scope="col">Описание</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${posts}" var="post">
+                        <tr>
+                            <td width=30><c:out value="${post.id}"/></td>
+                            <td><c:out value="${post.created}"/></td>
+                            <td><a href='<c:url value="/post/edit.jsp?id=${post.id}"/>'><i class="fa fa-edit mr-3"></i></a>
+                                <c:out value="${post.name}"/></td>
+                            <td><c:out value="${post.description}"/></td>
+                        </tr>
+                    </c:forEach>
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

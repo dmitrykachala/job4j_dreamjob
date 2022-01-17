@@ -76,7 +76,7 @@ public class DbStoreTest {
 
         assertThat(postInDb.getName(), is("Job"));
 
-        store.delete(1);
+        store.remove(store.findById(1));
 
         assertNull(store.findById(1));
     }
@@ -97,7 +97,7 @@ public class DbStoreTest {
 
         assertThat(canInDb.getName(), is("Job"));
 
-        store.deleteCan(1);
+        store.remove(store.findCanById(1));
 
         assertNull(store.findCanById(1));
     }

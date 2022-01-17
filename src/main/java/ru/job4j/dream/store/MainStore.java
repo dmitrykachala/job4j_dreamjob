@@ -9,7 +9,7 @@ public class MainStore {
 
         Store store = DbStore.instOf();
 
-        Post p1 = new Post(0, "Jedi");
+        /*Post p1 = new Post(0, "Jedi");
         store.save(new Post(0, "Java Job"));
         store.save(p1);
         for (Post post : store.findAllPosts()) {
@@ -38,10 +38,10 @@ public class MainStore {
 
         System.out.println(store.findCanById(3));
 
-        store.delete(1);
+        store.delete(1);*/
 
         for (Post post : store.findAllPosts()) {
-            System.out.println(post.getId() + " " + post.getName());
+            System.out.println(post);
         }
 
         for (var can : store.findAllCandidates()) {

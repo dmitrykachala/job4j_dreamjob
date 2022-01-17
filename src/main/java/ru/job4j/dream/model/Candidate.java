@@ -1,10 +1,19 @@
 package ru.job4j.dream.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Candidate {
     private int id;
+    private int cityId;
     private String name;
+    private Date created;
+
+    /*public Candidate(int id, String name, int cityId) {
+        this.id = id;
+        this.name = name;
+        this.cityId = cityId;
+    }*/
 
     public Candidate(int id, String name) {
         this.id = id;
@@ -27,9 +36,28 @@ public class Candidate {
         this.name = name;
     }
 
+    public int getCityId() {
+        return cityId;
+    }
+
+    public Candidate setCityId(int cityId) {
+        this.cityId = cityId;
+        return this;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public Candidate setCreated(Date created) {
+        this.created = created;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return "Candidate{" + "id=" + id + ", name='" + name + '\'' + '}';
+        return "Candidate{" + "id=" + id + ", cityId=" + cityId + ", name='" + name + '\''
+                + ", created=" + created + '}';
     }
 
     @Override
@@ -41,8 +69,7 @@ public class Candidate {
             return false;
         }
         Candidate candidate = (Candidate) o;
-        return id == candidate.id
-                && Objects.equals(name, candidate.name);
+        return id == candidate.id && Objects.equals(name, candidate.name);
     }
 
     @Override

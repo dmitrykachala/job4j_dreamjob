@@ -7,7 +7,7 @@ public class Post {
     private int id;
     private String name;
     private String description;
-    private final Date created;
+    private Date created;
 
     public Post(int id, String name, String description) {
         this.id = id;
@@ -42,12 +42,19 @@ public class Post {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Post setDescription(String description) {
+
         this.description = description;
+        return this;
     }
 
     public Date getCreated() {
         return created;
+    }
+
+    public Post setCreated(Date created) {
+        this.created = created;
+        return this;
     }
 
     @Override

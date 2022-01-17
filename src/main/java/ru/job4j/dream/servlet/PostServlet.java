@@ -30,7 +30,7 @@ public class PostServlet extends HttpServlet {
                 new Post(
                         Integer.valueOf(req.getParameter("id")),
                         req.getParameter("name")
-                )
+                ).setDescription(req.getParameter("description"))
         );
         resp.sendRedirect(req.getContextPath() + "/posts.do");
     }

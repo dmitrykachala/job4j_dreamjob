@@ -57,7 +57,6 @@
                             <c:out value="${error}"/>
                         </div>
                     </c:if>
-                    html
                 </form>
             </div>
         </div>

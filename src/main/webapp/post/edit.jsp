@@ -38,6 +38,7 @@
     }
 %>
 <div class="container pt-3">
+    <%@include file="../header.jsp"%>
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
@@ -57,16 +58,58 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/posts.do?id=<%=post.getId()%>" method="post">
+                <form class="formValidation" action="<%=request.getContextPath()%>/posts.do?id=<%=post.getId()%>" method="post">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input type="text" class="form-control" name="name" value="<%=post.getName()%>">
+                        <input type="text" class="name field" name="name" value="<%=post.getName()%>">
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <div class="form-group">
+                        <label>Описание</label>
+                        <input type="text" class="description field" name="description" value="<%=post.getDescription()%>">
+                    </div>
+                    <button type="submit" class="validateBtn">Сохранить</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+
+    let form = document.querySelector('.formValidation');
+    let validateBtn = form.querySelector('.validateBtn');
+    let name = form.querySelector(".name");
+    let city = form.querySelector(".description");
+    let fields = form.querySelectorAll(".field");
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        let errors = form.querySelectorAll(".error");
+        let err = false;
+
+        for (let i = 0; i < errors.length; i++) {
+            errors[i].remove();
+        }
+
+        for (let i = 0; i < fields.length; i++) {
+            if (!fields[i].value) {
+                err = true;
+                let error = document.createElement("div");
+                error.className = "error";
+                error.style.color = "red";
+                error.innerHTML = "Поле не может быть пустым";
+                form[i].parentElement.insertBefore(error, fields[i]);
+            }
+        }
+
+        if (!err) {
+            form.submit();
+        }
+
+    })
+
+</script>
+
 </body>
 </html>

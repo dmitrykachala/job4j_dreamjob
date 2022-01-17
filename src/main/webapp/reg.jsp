@@ -35,30 +35,68 @@
                 Регистрация
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/reg.do" method="post">
+                <form class="formValidation" action="<%=request.getContextPath()%>/reg.do" method="post">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" class="name field" name="name">
                     </div>
                     <div class="form-group">
                         <label>Почта</label>
-                        <input type="text" class="form-control" name="email">
+                        <input type="text" class="email field" name="email">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input type="text" class="form-control" name="password">
+                        <input type="text" class="password field" name="password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Регистрация</button>
+                    <button type="submit" class="validateBtn">Регистрация</button>
                     <c:if test="${not empty error}">
                         <div style="color:red; font-weight: bold; margin: 30px 0;">
                             <c:out value="${error}"/>
                         </div>
                     </c:if>
-                    html
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+
+    let form = document.querySelector('.formValidation');
+    let validateBtn = form.querySelector('.validateBtn');
+    let name = form.querySelector(".name");
+    let email = form.querySelector(".email");
+    let password = form.querySelector(".password");
+    let fields = form.querySelectorAll(".field");
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        let errors = form.querySelectorAll(".error");
+        let err = false;
+
+        for (let i = 0; i < errors.length; i++) {
+            errors[i].remove();
+        }
+
+        for (let i = 0; i < fields.length; i++) {
+            if (!fields[i].value) {
+                err = true;
+                let error = document.createElement("div");
+                error.className = "error";
+                error.style.color = "red";
+                error.innerHTML = "Поле не может быть пустым";
+                form[i].parentElement.insertBefore(error, fields[i]);
+            }
+        }
+
+        if (!err) {
+            form.submit();
+        }
+
+    })
+
+</script>
+
 </body>
 </html>
