@@ -43,7 +43,6 @@ public class Post {
     }
 
     public Post setDescription(String description) {
-
         this.description = description;
         return this;
     }

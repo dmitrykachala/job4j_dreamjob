@@ -21,16 +21,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
 <script>
     function sendGreeting() {
-        /*$.ajax({
-            type: 'GET',
-            url: 'http://localhost:8080/dreamjob/greet',
-            data: 'email=' + $('#email').val(),
-            dataType: 'text'
-        }).done(function(email) {
-            $('#emailLabel').text(email);
-        }).fail(function(email) {
-            $('#emailLabel').text("Ошибка!");
-        });*/
         $.ajax({
             type: 'POST',
             url: 'http://localhost:8080/dreamjob/greet',

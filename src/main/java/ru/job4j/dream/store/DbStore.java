@@ -5,7 +5,6 @@ import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.model.User;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -86,7 +85,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
         return candidates;
     }
@@ -102,7 +101,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
         return posts;
     }
@@ -169,7 +168,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
         return candidate;
     }
@@ -204,7 +203,7 @@ public class DbStore implements Store {
             ps.setInt(3, post.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
     }
 
@@ -217,7 +216,7 @@ public class DbStore implements Store {
             ps.setInt(3, candidate.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
     }
 
@@ -243,7 +242,7 @@ public class DbStore implements Store {
             ps.setInt(1, candidate.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
     }
 
@@ -254,7 +253,7 @@ public class DbStore implements Store {
             ps.setInt(1, post.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
     }
 
@@ -304,7 +303,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
         return null;
     }
@@ -378,7 +377,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
         return candidates;
     }
@@ -397,7 +396,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception: ", e);
         }
         return posts;
     }

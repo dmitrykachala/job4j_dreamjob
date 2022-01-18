@@ -4,10 +4,10 @@ import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.model.User;
-
 import java.util.Collection;
 
 public interface Store {
+
     Collection<Post> findAllPosts();
 
     Collection<Candidate> findAllCandidates();
@@ -17,10 +17,6 @@ public interface Store {
     void save(Candidate candidate);
 
     void save(User user);
-
-    /*void delete(int id);
-
-    void deleteCan(int id);*/
 
     Post findById(int id);
 
