@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -48,11 +49,16 @@ public class DbStoreTest {
         pool.setMaxIdle(10);
         pool.setMaxOpenPreparedStatements(100);
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement("DROP TABLE IF EXISTS post;\n"
-                     + "\n" + "CREATE TABLE IF NOT EXISTS post (\n" + "    id SERIAL PRIMARY KEY,\n"
-                     + "     name TEXT\n" + ");\n" + "\n" + "DROP TABLE IF EXISTS candidate;\n"
-                     + "\n" + "CREATE TABLE IF NOT EXISTS candidate (\n"
-                     + "    id SERIAL PRIMARY KEY,\n" + "    name TEXT\n" + ");")
+             PreparedStatement ps = cn.prepareStatement("DROP TABLE IF EXISTS post;\n" + "\n"
+                     + "CREATE TABLE IF NOT EXISTS post (\n" + "    id SERIAL PRIMARY KEY,\n"
+                     + "    name TEXT,\n" + "    created DATE,\n" + "    description TEXT\n"
+                     + ");\n" + "\n" + "DROP TABLE IF EXISTS candidate;\n" + "\n"
+                     + "CREATE TABLE IF NOT EXISTS candidate (\n" + "    id SERIAL PRIMARY KEY,\n"
+                     + "    name TEXT,\n" + "    created DATE,\n" + "    id_city integer\n"
+                     + ");\n" + "\n" + "DROP TABLE IF EXISTS cities;\n" + "\n"
+                     + "CREATE TABLE IF NOT EXISTS cities (\n" + "    id SERIAL PRIMARY KEY,\n"
+                     + "    name TEXT\n" + ");\n" + "\n"
+                     + "INSERT INTO cities(name) values ('Мск'),('Спб'),('Екб');")
         ) {
             ps.execute();
         } catch (Exception e) {
@@ -63,7 +69,7 @@ public class DbStoreTest {
     @Test
     public void whenFindAndCreateAndUpdateAndDeletePost() {
         Store store = DbStore.instOf();
-        Post post = new Post(0, "Java Job");
+        Post post = new Post(0, "Java Job").setDescription("smth").setCreated(new Date());
         store.save(post);
         Post postInDb = store.findById(post.getId());
 
@@ -71,7 +77,7 @@ public class DbStoreTest {
 
         assertThat(postInDb.getName(), is(post.getName()));
 
-        store.save(new Post(1, "Job"));
+        store.save(new Post(1, "Job").setDescription("smth").setCreated(new Date()));
         postInDb = store.findById(post.getId());
 
         assertThat(postInDb.getName(), is("Job"));
@@ -84,7 +90,7 @@ public class DbStoreTest {
     @Test
     public void whenFindAndCreateAndUpdateAndDeleteCandidate() {
         Store store = DbStore.instOf();
-        Candidate candidate = new Candidate(0, "Java Job");
+        Candidate candidate = new Candidate(0, "Java Job").setCityId(1).setCreated(new Date());
         store.save(candidate);
         Candidate canInDb = store.findCanById(candidate.getId());
 
@@ -92,7 +98,7 @@ public class DbStoreTest {
 
         assertThat(canInDb.getName(), is(candidate.getName()));
 
-        store.save(new Candidate(1, "Job"));
+        store.save(new Candidate(1, "Job").setCityId(1).setCreated(new Date()));
         canInDb = store.findCanById(candidate.getId());
 
         assertThat(canInDb.getName(), is("Job"));
